@@ -1,14 +1,14 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Hosting;
-using Rugal.DotNetLib.WebApi.Cors;
-using Rugal.DotNetLib.WebApi.FormDataConverters;
-using Rugal.DotNetLib.WebApi.JsonConverters;
+using Rugal.DotNetLib.Http.Cors;
+using Rugal.DotNetLib.Http.FormDataConverters;
+using Rugal.DotNetLib.Http.JsonConverters;
 
-namespace Rugal.DotNetLib.WebApi.Core
+namespace Rugal.DotNetLib.Http.Core
 {
     public static class StartupExtention
     {
-        public static IHostApplicationBuilder AddDotNetLib_Core(this IHostApplicationBuilder Builder)
+        public static IHostApplicationBuilder AddDotNetLib_HttpCore(this IHostApplicationBuilder Builder)
         {
             Builder.Services
                 .AddDotNetLib_JsonConvertAll()
@@ -17,7 +17,7 @@ namespace Rugal.DotNetLib.WebApi.Core
 
             return Builder;
         }
-        public static IApplicationBuilder UsingDotNetLib_Core(this IApplicationBuilder App)
+        public static IApplicationBuilder UsingDotNetLib_HttpCore(this IApplicationBuilder App)
         {
             App.UsingDotNetLib_Cors();
             return App;

@@ -1,4 +1,4 @@
-﻿namespace Rugal.DotNetLib.WebApi.FormDataConverters
+﻿namespace Rugal.DotNetLib.Http.FormDataConverters
 {
     public class FormDataJsonOption
     {

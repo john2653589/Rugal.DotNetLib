@@ -3,7 +3,7 @@ using Rugal.DotNetLib.Core.JsonConverters;
 using System.Collections;
 using System.Text.Json;
 
-namespace Rugal.DotNetLib.WebApi.FormDataConverters
+namespace Rugal.DotNetLib.Http.FormDataConverters
 {
     public class FormDataJsonBinder : IModelBinder
     {

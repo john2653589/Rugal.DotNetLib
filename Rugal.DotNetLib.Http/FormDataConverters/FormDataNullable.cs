@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System.Globalization;
 
-namespace Rugal.DotNetLib.WebApi.FormDataConverters
+namespace Rugal.DotNetLib.Http.FormDataConverters
 {
     public class FormDataNullableProviderFactory : IValueProviderFactory
     {

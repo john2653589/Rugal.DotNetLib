@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Rugal.DotNetLib.WebApi.FormDataConverters
+namespace Rugal.DotNetLib.Http.FormDataConverters
 {
     public static class StartupExtention
     {

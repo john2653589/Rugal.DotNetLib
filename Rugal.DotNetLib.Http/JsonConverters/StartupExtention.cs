@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Rugal.DotNetLib.Core.JsonConverters;
-using Rugal.DotNetLib.WebApi.JsonConverters;
+using Rugal.DotNetLib.Http.JsonConverters;
 
-namespace Rugal.DotNetLib.WebApi.JsonConverters
+namespace Rugal.DotNetLib.Http.JsonConverters
 {
     public static class StartupExtention
     {
