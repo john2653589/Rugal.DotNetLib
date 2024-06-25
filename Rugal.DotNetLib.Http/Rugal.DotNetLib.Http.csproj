@@ -8,14 +8,14 @@
 		<RootNamespace>$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 
-		<AssemblyVersion>1.0.1</AssemblyVersion>
+		<AssemblyVersion>1.1.0</AssemblyVersion>
 		<FileVersion>$(AssemblyVersion)-beta</FileVersion>
 		<Version>$(AssemblyVersion)-beta</Version>
 		<Authors>Rugal</Authors>
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\Rugal.DotNetLib.Core\Rugal.DotNetLib.Core.csproj" />
+	  <PackageReference Include="Rugal.DotNetLib.Core" Version="1.1.0-beta" />
 	</ItemGroup>
 
 </Project>

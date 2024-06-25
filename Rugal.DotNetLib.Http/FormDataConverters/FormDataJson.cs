@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.Extensions.DependencyInjection;
 using Rugal.DotNetLib.Core.JsonConverters;
+using Rugal.DotNetLib.Core.ValueConvert;
 using System.Collections;
 using System.Text.Json;
 
@@ -20,6 +22,9 @@ namespace Rugal.DotNetLib.Http.FormDataConverters
                 return Task.CompletedTask;
 
             if (TryParseFile(bindingContext))
+                return Task.CompletedTask;
+
+            if (TryParseValue(bindingContext))
                 return Task.CompletedTask;
 
             return Task.CompletedTask;
@@ -59,6 +64,24 @@ namespace Rugal.DotNetLib.Http.FormDataConverters
                     var File = bindingContext.HttpContext.Request.Form.Files.GetFile(FieldName);
                     bindingContext.Result = ModelBindingResult.Success(File);
                 }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                return false;
+            }
+        }
+        public static bool TryParseValue(ModelBindingContext bindingContext)
+        {
+            try
+            {
+                var GetValueParseService = bindingContext.HttpContext.RequestServices.GetService<ValueParseService>();
+                var FieldName = bindingContext.FieldName;
+                var GetValue = bindingContext.ValueProvider.GetValue(FieldName).FirstValue;
+
+                var TryGetValue = GetValueParseService.TryParse(GetValue, bindingContext.ModelType);
+                bindingContext.Result = ModelBindingResult.Success(TryGetValue);
                 return true;
             }
             catch (Exception ex)
