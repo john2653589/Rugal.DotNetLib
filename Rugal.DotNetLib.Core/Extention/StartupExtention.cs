@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Hosting;
 using Rugal.DotNetLib.Core.ValueParse;
 
-namespace Rugal.DotNetLib.Core
+namespace Rugal.DotNetLib.Core.Extention
 {
     public static class StartupExtention
     {

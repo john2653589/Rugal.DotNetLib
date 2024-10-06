@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Hosting;
-using Rugal.DotNetLib.Core;
+using Rugal.DotNetLib.Core.Extention;
 using Rugal.DotNetLib.Http.Cors;
 using Rugal.DotNetLib.Http.FormDataConverters;
 using Rugal.DotNetLib.Http.JsonConverters;
 
-namespace Rugal.DotNetLib.Http.Core
+namespace Rugal.DotNetLib.Http.Extention
 {
     public static class StartupExtention
     {
