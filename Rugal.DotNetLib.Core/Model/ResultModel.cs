@@ -4,100 +4,100 @@
     {
         public bool IsSuccess { get; set; }
         public int Code { get; set; }
-        public string ErrorMessage { get; set; }
+        public string Message { get; set; }
         public TResult Result { get; set; }
-        public virtual BaseResultModel<TResult> WithSuccess(TResult _Result = default, int _Code = -1)
+        public virtual BaseResultModel<TResult> WithSuccess(TResult Result = default, int Code = -1)
         {
             IsSuccess = true;
-            Result = _Result;
-            Code = _Code;
+            this.Result = Result;
+            this.Code = Code;
             return this;
         }
-        public virtual BaseResultModel<TResult> WithError(string _ErrorMessage, int _Code = -1)
+        public virtual BaseResultModel<TResult> WithError(string Message, int Code = -1)
         {
             IsSuccess = false;
-            ErrorMessage = _ErrorMessage;
-            Code = _Code;
+            this.Message = Message;
+            this.Code = Code;
             return this;
         }
-        public virtual BaseResultModel<TResult> WithErrors(IEnumerable<string> _ErrorMessages, string Separator = "，")
+        public virtual BaseResultModel<TResult> WithErrors(IEnumerable<string> Messages, string Separator = "，")
         {
-            var FullErrorMessage = string.Join(Separator, _ErrorMessages);
+            var FullErrorMessage = string.Join(Separator, Messages);
             return WithError(FullErrorMessage);
         }
-        public virtual BaseResultModel<TResult> WithErrors(IEnumerable<string> _ErrorMessages, int _Code, string Separator = "，")
+        public virtual BaseResultModel<TResult> WithErrors(IEnumerable<string> Messages, int Code, string Separator = "，")
         {
-            var FullErrorMessage = string.Join(Separator, _ErrorMessages);
-            return WithError(FullErrorMessage, _Code);
+            var FullErrorMessage = string.Join(Separator, Messages);
+            return WithError(FullErrorMessage, Code);
         }
     }
     public class ResultModel<TResult> : BaseResultModel<TResult>
     {
-        public override ResultModel<TResult> WithSuccess(TResult _Result = default, int _Code = -1)
+        public override ResultModel<TResult> WithSuccess(TResult Result = default, int Code = -1)
         {
-            base.WithSuccess(_Result, _Code);
+            base.WithSuccess(Result, Code);
             return this;
         }
-        public override ResultModel<TResult> WithError(string _ErrorMessage, int _Code = -1)
+        public override ResultModel<TResult> WithError(string Message, int Code = -1)
         {
-            base.WithError(_ErrorMessage, _Code);
+            base.WithError(Message, Code);
             return this;
         }
-        public override ResultModel<TResult> WithErrors(IEnumerable<string> _ErrorMessages, string Separator = "，")
+        public override ResultModel<TResult> WithErrors(IEnumerable<string> Messages, string Separator = "，")
         {
-            base.WithErrors(_ErrorMessages, Separator);
+            base.WithErrors(Messages, Separator);
             return this;
         }
-        public override ResultModel<TResult> WithErrors(IEnumerable<string> _ErrorMessages, int _Code, string Separator = "，")
+        public override ResultModel<TResult> WithErrors(IEnumerable<string> Messages, int Code, string Separator = "，")
         {
-            base.WithErrors(_ErrorMessages, _Code, Separator);
+            base.WithErrors(Messages, Code, Separator);
             return this;
         }
-        public static ResultModel<TResult> Success(TResult _Result = default, int _Code = -1)
+        public static ResultModel<TResult> Success(TResult Result = default, int Code = -1)
+        {
+            var ModelResult = new ResultModel<TResult>()
+                .WithSuccess(Result, Code);
+            return ModelResult;
+        }
+        public static ResultModel<TResult> Error(string Message, int Code = -1)
         {
             var Result = new ResultModel<TResult>()
-                .WithSuccess(_Result, _Code);
+                .WithError(Message, Code);
             return Result;
         }
-        public static ResultModel<TResult> Error(string _ErrorMessage, int _Code = -1)
+        public static ResultModel<TResult> Errors(IEnumerable<string> Message, string Separator = "，")
         {
             var Result = new ResultModel<TResult>()
-                .WithError(_ErrorMessage, _Code);
+                .WithErrors(Message, Separator);
             return Result;
         }
-        public static ResultModel<TResult> Errors(IEnumerable<string> _ErrorMessage, string Separator = "，")
+        public static ResultModel<TResult> Errors(IEnumerable<string> Message, int Code, string Separator = "，")
         {
             var Result = new ResultModel<TResult>()
-                .WithErrors(_ErrorMessage, Separator);
-            return Result;
-        }
-        public static ResultModel<TResult> Errors(IEnumerable<string> _ErrorMessage, int _Code, string Separator = "，")
-        {
-            var Result = new ResultModel<TResult>()
-                .WithErrors(_ErrorMessage, _Code, Separator);
+                .WithErrors(Message, Code, Separator);
             return Result;
         }
     }
     public class ResultModel : BaseResultModel<object>
     {
-        public override ResultModel WithSuccess(object _Result = default, int _Code = -1)
+        public override ResultModel WithSuccess(object Result = default, int Code = -1)
         {
-            base.WithSuccess(_Result, _Code);
+            base.WithSuccess(Result, Code);
             return this;
         }
-        public override ResultModel WithError(string _ErrorMessage, int _Code = -1)
+        public override ResultModel WithError(string Message, int Code = -1)
         {
-            base.WithError(_ErrorMessage, _Code);
+            base.WithError(Message, Code);
             return this;
         }
-        public override ResultModel WithErrors(IEnumerable<string> _ErrorMessages, string Separator = "，")
+        public override ResultModel WithErrors(IEnumerable<string> Messages, string Separator = "，")
         {
-            base.WithErrors(_ErrorMessages, Separator);
+            base.WithErrors(Messages, Separator);
             return this;
         }
-        public override ResultModel WithErrors(IEnumerable<string> _ErrorMessages, int _Code, string Separator = "，")
+        public override ResultModel WithErrors(IEnumerable<string> Messages, int Code, string Separator = "，")
         {
-            base.WithErrors(_ErrorMessages, _Code, Separator);
+            base.WithErrors(Messages, Code, Separator);
             return this;
         }
         public ResultModel<TResult> AsModel<TResult>()
@@ -116,7 +116,7 @@
             {
                 IsSuccess = IsSuccess,
                 Code = Code,
-                ErrorMessage = ErrorMessage,
+                Message = Message,
                 Result = ConvertResult,
             };
             return ConvertResultModel;
@@ -131,7 +131,7 @@
             {
                 IsSuccess = IsSuccess,
                 Code = Code,
-                ErrorMessage = ErrorMessage,
+                Message = Message,
                 Result = Result
             };
             return true;
@@ -145,52 +145,52 @@
             OutResult = ConvertResult;
             return true;
         }
-        public static ResultModel Success(object _Result = default, int _Code = -1)
+        public static ResultModel Success(object Result = default, int Code = -1)
+        {
+            var ModelResult = new ResultModel()
+                .WithSuccess(Result, Code);
+            return ModelResult;
+        }
+        public static ResultModel Error(string Message, int Code = -1)
         {
             var Result = new ResultModel()
-                .WithSuccess(_Result, _Code);
+                .WithError(Message, Code);
             return Result;
         }
-        public static ResultModel Error(string _ErrorMessage, int _Code = -1)
+        public static ResultModel Errors(IEnumerable<string> Message, string Separator = "，")
         {
             var Result = new ResultModel()
-                .WithError(_ErrorMessage, _Code);
+                .WithErrors(Message, Separator);
             return Result;
         }
-        public static ResultModel Errors(IEnumerable<string> _ErrorMessage, string Separator = "，")
+        public static ResultModel Errors(IEnumerable<string> Message, int Code, string Separator = "，")
         {
             var Result = new ResultModel()
-                .WithErrors(_ErrorMessage, Separator);
+                .WithErrors(Message, Code, Separator);
             return Result;
         }
-        public static ResultModel Errors(IEnumerable<string> _ErrorMessage, int _Code, string Separator = "，")
+        public static ResultModel<TResult> SuccessAs<TResult>(TResult Result = default, int Code = -1)
         {
-            var Result = new ResultModel()
-                .WithErrors(_ErrorMessage, _Code, Separator);
-            return Result;
+            var ModelResult = new ResultModel<TResult>()
+                .WithSuccess(Result, Code);
+            return ModelResult;
         }
-        public static ResultModel<TResult> SuccessAs<TResult>(TResult _Result = default, int _Code = -1)
-        {
-            var Result = new ResultModel<TResult>()
-                .WithSuccess(_Result, _Code);
-            return Result;
-        }
-        public static ResultModel<TResult> ErrorAs<TResult>(string _ErrorMessage, int _Code = -1)
+        public static ResultModel<TResult> ErrorAs<TResult>(string Message, int Code = -1)
         {
             var Result = new ResultModel<TResult>()
-                .WithError(_ErrorMessage, _Code);
+                .WithError(Message, Code);
             return Result;
         }
-        public static ResultModel<TResult> ErrorsAs<TResult>(IEnumerable<string> _ErrorMessage, string Separator = "，")
+        public static ResultModel<TResult> ErrorsAs<TResult>(IEnumerable<string> Message, string Separator = "，")
         {
             var Result = new ResultModel<TResult>()
-                .WithErrors(_ErrorMessage, Separator);
+                .WithErrors(Message, Separator);
             return Result;
         }
-        public static ResultModel<TResult> ErrorsAs<TResult>(IEnumerable<string> _ErrorMessage, int _Code, string Separator = "，")
+        public static ResultModel<TResult> ErrorsAs<TResult>(IEnumerable<string> Message, int Code, string Separator = "，")
         {
             var Result = new ResultModel<TResult>()
-                .WithErrors(_ErrorMessage, _Code, Separator);
+                .WithErrors(Message, Code, Separator);
             return Result;
         }
     }
