@@ -16,8 +16,8 @@
         public virtual BaseResultModel<TResult> WithError(string Message, int Code = -1)
         {
             IsSuccess = false;
-            this.Message = Message;
             this.Code = Code;
+            this.Message = Message;
             return this;
         }
         public virtual BaseResultModel<TResult> WithErrors(IEnumerable<string> Messages, string Separator = "，")
@@ -29,6 +29,17 @@
         {
             var FullErrorMessage = string.Join(Separator, Messages);
             return WithError(FullErrorMessage, Code);
+        }
+        public virtual BaseResultModel<TResult> WithMessage(string Message)
+        {
+            this.Message = Message;
+            return this;
+        }
+        public virtual BaseResultModel<TResult> WithMessages(IEnumerable<string> Messages, string Separator = "，")
+        {
+            var FullMessages = string.Join(Separator, Messages);
+            WithMessage(FullMessages);
+            return this;
         }
     }
     public class ResultModel<TResult> : BaseResultModel<TResult>
@@ -53,10 +64,21 @@
             base.WithErrors(Messages, Code, Separator);
             return this;
         }
-        public static ResultModel<TResult> Success(TResult Result = default, int Code = -1)
+        public override ResultModel<TResult> WithMessage(string Message)
+        {
+            base.WithMessage(Message);
+            return this;
+        }
+        public override ResultModel<TResult> WithMessages(IEnumerable<string> Messages, string Separator = "，")
+        {
+            base.WithMessages(Messages, Separator);
+            return this;
+        }
+        public static ResultModel<TResult> Success(TResult Result = default, int Code = -1, string Message = null)
         {
             var ModelResult = new ResultModel<TResult>()
-                .WithSuccess(Result, Code);
+                .WithSuccess(Result, Code)
+                .WithMessage(Message);
             return ModelResult;
         }
         public static ResultModel<TResult> Error(string Message, int Code = -1)
@@ -98,6 +120,16 @@
         public override ResultModel WithErrors(IEnumerable<string> Messages, int Code, string Separator = "，")
         {
             base.WithErrors(Messages, Code, Separator);
+            return this;
+        }
+        public override ResultModel WithMessage(string Message)
+        {
+            base.WithMessage(Message);
+            return this;
+        }
+        public override ResultModel WithMessages(IEnumerable<string> Messages, string Separator = "，")
+        {
+            base.WithMessages(Messages, Separator);
             return this;
         }
         public ResultModel<TResult> AsModel<TResult>()
@@ -145,10 +177,11 @@
             OutResult = ConvertResult;
             return true;
         }
-        public static ResultModel Success(object Result = default, int Code = -1)
+        public static ResultModel Success(object Result = default, int Code = -1, string Message = null)
         {
             var ModelResult = new ResultModel()
-                .WithSuccess(Result, Code);
+                .WithSuccess(Result, Code)
+                .WithMessage(Message);
             return ModelResult;
         }
         public static ResultModel Error(string Message, int Code = -1)
