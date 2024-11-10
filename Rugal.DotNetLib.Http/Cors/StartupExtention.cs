@@ -31,7 +31,7 @@ namespace Rugal.DotNetLib.Http.Cors
                 else if (!string.IsNullOrWhiteSpace(GetCors))
                 {
                     var CorsOrigins = GetCors
-                        .Split(',')
+                        .Split(';')
                         .Select(Item => Item.Trim(' '))
                         .ToArray();
 
