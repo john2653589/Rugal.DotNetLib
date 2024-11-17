@@ -88,5 +88,13 @@
 
             return Datas.Any();
         }
+        public static bool IsHasAny(this System.Collections.IEnumerable Datas)
+        {
+            if (Datas is null)
+                return false;
+
+            var ConvertDatas = Datas.Cast<object>();
+            return ConvertDatas.Any();
+        }
     }
 }
