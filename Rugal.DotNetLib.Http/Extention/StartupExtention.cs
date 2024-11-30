@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Hosting;
+using Rugal.ConfigFiller.Core.Extention;
 using Rugal.DotNetLib.Core.ValueParse;
 using Rugal.DotNetLib.Http.Cors;
 using Rugal.DotNetLib.Http.FormDataConverters;
@@ -11,6 +12,9 @@ namespace Rugal.DotNetLib.Http.Extention
     {
         public static IHostApplicationBuilder AddDotNetLib_HttpCore(this IHostApplicationBuilder Builder)
         {
+            Builder.Configuration
+                .AddConfigFiller();
+
             Builder.Services
                 .AddDotNetLib_ValueParse()
                 .AddDotNetLib_JsonConvertAll()
