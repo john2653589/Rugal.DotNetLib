@@ -1,4 +1,6 @@
-﻿namespace Rugal.DotNetLib.Core.ValueConvert
+﻿using Rugal.DotNetLib.Core.DateConvert;
+
+namespace Rugal.DotNetLib.Core.ValueConvert
 {
     public static class ConvertersExtention
     {
@@ -28,14 +30,22 @@
         }
         public static DateOnly TryToDateOnly(this string GetValue)
         {
-            if (DateOnly.TryParse(GetValue, out var Value))
-                return Value;
+            if (DateOnly.TryParse(GetValue, out var DateOnlyValue))
+                return DateOnlyValue;
+
+            if (DateTime.TryParse(GetValue, out var DateTimeValue))
+                return DateTimeValue.ToDateOnly();
+
             return DateOnly.MinValue;
         }
         public static DateOnly? TryToDateOnlyNull(this string GetValue)
         {
-            if (DateOnly.TryParse(GetValue, out var Value))
-                return Value;
+            if (DateOnly.TryParse(GetValue, out var DateOnlyValue))
+                return DateOnlyValue;
+
+            if (DateTime.TryParse(GetValue, out var DateTimeValue))
+                return DateTimeValue.ToDateOnly();
+
             return null;
         }
         public static bool TryToBool(this string GetValue)
